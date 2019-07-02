@@ -57,6 +57,8 @@ Many recursive functions that make multiple calls have runtimes like **O(branche
 
 ###
 What are the runtimes of the following functions?
+
+**#1**
 ```C
 void foo(int[] array){
   int sum = 0;
@@ -68,6 +70,7 @@ void foo(int[] array){
 ```
 > O(N) time.
 
+**#2**
 ```Java
 void printPairs(int[] array) {
   for (int i= 0; i < array.length; i++) {
@@ -79,6 +82,7 @@ void printPairs(int[] array) {
 ```
 > My guess: O(N^2), Solution: O(N^2) 
 
+**#3**
 ```Java
 void printUnorderedPairs(int[] arrayA, int[] arrayB) {
   for (int i= 0; i < arrayA.length; i++) {
@@ -92,6 +96,7 @@ void printUnorderedPairs(int[] arrayA, int[] arrayB) {
 ```
 > My guess: O(N^2), Solution: O(ab) since there are 2 different inputs. Since array A could have length==1 and B could have length==100000 we need to consider the difference. This makes a lot of sense. 
 
+**#4**
 ```Java
 void printUnorderedPairs(int[] arrayA, int[] arrayB) {
   for (int i= 0; i < arrayA.length; i++) {
@@ -106,6 +111,7 @@ void printUnorderedPairs(int[] arrayA, int[] arrayB) {
 > My guess: O(ab) again since loop 1 runs A times, loop 2 runs B times, loop 3 is constant and the print is constant. AxBx1x1 <br>
 > Solution: O(ab)
 
+**#5**
 ```Java
 void reverse(int[] array) {
   for (int i= 0; i <array.length/ 2; i++) {
@@ -118,6 +124,7 @@ void reverse(int[] array) {
 ```
 > My guess: O(N) since the loop runs N/2 times and contains only constant instructions. Solution: O(N)
 
+**#6**
 **Which of the following are O(N)**:
 * O(N + P) where P<N/2;   
 * O(2N)
@@ -131,7 +138,10 @@ void reverse(int[] array) {
 * O(N + log N); **N is a much higher runtime than log N so we discard log N**
 * O(N+M); **We do not know the value of M so this would have to be O(N+M) still
 
+**#7**
 **Given an array of strings, sort each string then sort the array. What is the complexity?**
+
+*Here is my Pseudo Code Approach*
 ```
 for (i : array){  //N
   for (j : i){    //M
@@ -146,6 +156,7 @@ for (i : arr){   // N
 > My Guess: O(NM) which I first figured O(2NM) and then removed 2 <br> 
 > Solution: I was completely off since I was using a primitive sorting method and complexity. if s is the length of the longest string and a is the length of the array we can now break this down into parts. First sorting each string is O(s log s). Next since we do this for every string we have **O(a * s log s)**. Finally we have to sort the array and to do this we need to consider every part, the length of the array and the length of the strings. Some may first think it is O(a log a) but this does not consider the string comparisons. Comparing strings is an O(S) operation, over (a log a) comparisons=> **O(a * s log a)**. Add up all of the complexities to arrive at **O(a * s(log a + log s)**
 
+**#8**
 ```Java
 // Sums nodes in a balanced BST
 int sum(Node node) {
@@ -157,6 +168,7 @@ int sum(Node node) {
 ```
 > My guess: O(log N) since we are cutting the problem space in half each iteration. Solution: O(N) since the code only touches each node once and does constant operations on each node... Another way to look at it is the rule of thumb where recursive calls follow complexity **O(branches^depth)**. In this case branches is 2 and depth is log N, and 2^log(n) actually deduces to N!
 
+**#9**
 ```Java
 boolean isPrime(int n) {
   for (int x = 2; x * x <= n; x++) {
@@ -169,6 +181,7 @@ boolean isPrime(int n) {
 ```
 > My guess: Not entirely sure, O(log N) fits my examples but I can't work out the logic of why. The loop stops when x == sqrt(n). Solution: O(sqrt(n)), I had considered this as an option but I suppose I was not convinced that sqrt(n) would be a viable complexity. Don't overthink!
 
+**#10**
 This simply computes n!, factorial function:
 ```Java
 int factorial(int n) {
@@ -183,6 +196,7 @@ int factorial(int n) {
 ```
 > My guess: O(N), seems like linear calls with simple comparisons in each call. Solution: O(N)
 
+**#11**
 This code counts all permutations of a string. Tricky one!
 ```Java
 void permutation(String str) {
@@ -201,6 +215,7 @@ void permutation(String str, String prefix) {
 ```
 > My guess: O(2^n) but this one was really challenging and I'm really curious to see actual answer. Solution: First big thing I missed is that printing a string is a linear operation! String rem line is linear as well. So at this point the work required in one node is linear. Now to figure out how many function calls there are. There are n! leaves attached to a path of length n. There can not be more than n * n! nodes. Put these all together for O(N^2 * N!)
 
+**#12**
 Fib time 
 ```Java
 int fib(int n) {
@@ -211,6 +226,7 @@ int fib(int n) {
 ```
 > My guess: Based on the rule discussed with trees of O(branches^depth) and drawing out an example tree it should be O(2^N). Solution: O(2^N) although it does say the runtime could be tighter since the tree will always have a slight imbalance to it. 
 
+**#13**
 **How could memoization help when iterating through the first 20 digits of fib?**
 > If we cache each iteration of fib then we simply have to lookup the value instead of running through fib every time. This would make an algorithm to iterate through fib O(N)
 
