@@ -4,7 +4,7 @@ This repository is a central view into how I am preparing for interviews and fur
 
 ## Checklist of Topics to Understand
 
-- [ ] Linked Lists
+- [X] Linked Lists
 - [ ] Tries
 - [ ] Trees
 - [ ] Graphs
