@@ -1,7 +1,15 @@
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
+/**
+ * Doubly LinkedList data structure implementation
+ * @MattFossett
+ * Complexity Analysis:
+ *   searching/indexing: O(N)
+ *   inserting: O(1)
+ *   removing:  O(1)
+ */
 public class LinkedList<E> implements Iterable<E>{
 	private ListNode<E> header;
 	private int size;
@@ -47,9 +55,8 @@ public class LinkedList<E> implements Iterable<E>{
 	 * @return
 	 */
 	public boolean addAll(Collection<? extends E> c){
-		for(E i : c){
+		for(E i : c)
 			add(i);
-		}
 		return true;
 	}
 	
@@ -64,7 +71,6 @@ public class LinkedList<E> implements Iterable<E>{
 			add(index, i);
 			index++;
 		}
-		
 		return true;
 	}
 	
@@ -217,10 +223,17 @@ public class LinkedList<E> implements Iterable<E>{
 	}
 }
 
+/**
+ * This is the implementation for the custom list iterator.
+ */
 class ListIterator<E> implements Iterator<E> {
 	ListNode<E> current;
 	ListNode<E> header;
 	
+	/**
+	 * Start iterator at index 0
+	 *   if list empty then iterator is at end (header)
+	 */
 	public ListIterator(LinkedList<E> list){
 		current = list.getHead();
 		header = current;	
@@ -233,10 +246,28 @@ class ListIterator<E> implements Iterator<E> {
 		}
 		return current.next != null && current.next != header;
 	}
+    
+	public boolean hasPrevious(){
+		if (current==null){
+			return false;
+		}
+		return current.prev != null && current.prev != header;
+	}
 
 	@Override
 	public E next() {
+		if (!hasNext()){
+			throw new NoSuchElementException();
+		}
 		current = current.next;
+		return current.data;
+	}
+
+	public E previous(){
+		if (!hasPrevious()){
+			throw new NoSuchElementException();
+		}
+		current = current.prev;
 		return current.data;
 	}
 
@@ -244,6 +275,9 @@ class ListIterator<E> implements Iterator<E> {
 	public void remove() {
 		throw new UnsupportedOperationException();
 	}
-	
-}
 
+	@Override
+	public String toString(){
+		return current.data + "";
+	}
+}

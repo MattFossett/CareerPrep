@@ -1,5 +1,10 @@
 import java.util.ArrayList;
+import java.util.Iterator;
 
+/**
+ * This is a simple file that creates test simply based on string comparison. 
+ *  @MattFossett
+ */
 public class test_driver {
 	/**
 	 * TEST DRIVER
@@ -118,11 +123,21 @@ public class test_driver {
 		LinkedList<Integer> copy = (LinkedList<Integer>) list.clone();
 		copy.add(14);
 		test("11: Modifying clone does not effect source", ""+(list.toString()!=copy.toString()), "true");
+		/****************************************************************
+		 * TEST 11
+		 ****************************************************************/
+		LinkedList<Integer> small = new LinkedList<Integer>();
+		for (int i=0; i<5; i++){
+			small.add(i);
+		}
+		Iterator<Integer> i = small.iterator(); //Starts at index 0
+		while (i.hasNext()){
+			i.next();
+		} //Leave off at last element which in this case is 4
+		
+		test("11: Moving iterator", i.toString(), "4");
 	}
-	
-	
 /**
  * END TEST DRIVER
  */
-
 }
