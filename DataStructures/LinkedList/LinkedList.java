@@ -10,7 +10,7 @@ import java.util.NoSuchElementException;
  *   inserting: O(1)
  *   removing:  O(1)
  */
-public class LinkedList<E> implements Iterable<E>{
+public class LinkedList<E> implements Iterable<E>, Cloneable {
 	private ListNode<E> header;
 	private int size;
 	
@@ -74,6 +74,31 @@ public class LinkedList<E> implements Iterable<E>{
 		return true;
 	}
 	
+	/**
+	 * gets value of element at front of list
+	 * @return data at first list element
+	 * @throws NoSuchElementException if empty list
+	 */
+	public E front(){
+		if (size <= 0){
+			throw new NoSuchElementException("List is empty");
+		}
+		return header.next.data;
+	}
+
+	/**
+	 * gets value of element at back of list
+	 * @return data at last list element
+	 * @throws NoSuchElementException if empty list
+	 */
+	public E back(){
+		if (size <= 0){
+			throw new NoSuchElementException("List is empty");
+		}
+		return header.prev.data;
+	}
+
+
 	/**
 	 * Add element to beginning of list
 	 * @param data
@@ -191,6 +216,24 @@ public class LinkedList<E> implements Iterable<E>{
 			}
 		}
 		return false;
+	}
+
+	/**
+	 * Removes last element in list
+	 * @throws NoSuchElementException if list is empty
+	 * @return data in removed node
+	 */
+	public E removeBack(){
+		if (size <= 0){
+			throw new NoSuchElementException("List is empty");
+		}
+		ListNode<E> temp = header.prev;
+		header.prev = temp.prev;
+		temp.prev.next = header;
+		temp.next = null;
+		temp.prev = null;
+		size--;
+		return temp.data;
 	}
 	
 	/**
