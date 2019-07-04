@@ -124,7 +124,7 @@ public class test_driver {
 		copy.add(14);
 		test("11: Modifying clone does not effect source", ""+(list.toString()!=copy.toString()), "true");
 		/****************************************************************
-		 * TEST 11
+		 * TEST 12
 		 ****************************************************************/
 		LinkedList<Integer> small = new LinkedList<Integer>();
 		for (int i=0; i<5; i++){
