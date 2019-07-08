@@ -14,7 +14,7 @@ Test output is stored in text files in [/tests/output](/tests/output).
 Compiling tests:
 From [/DataStructures]() compile with the following example: <br>
 ```
-javac tests/list_test_driver.java <br>
+javac tests/list_test_driver.java 
 ```
 
 Run this file with the following example: <br>

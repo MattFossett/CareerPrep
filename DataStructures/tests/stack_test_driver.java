@@ -30,17 +30,40 @@ public class stack_test_driver {
 	}
 	public static void main(String[] args){
 		/****************************************************************
-		 * TEST 1
+		 * TEST 1: Pushing onto stack
 		 ****************************************************************/	
-		/*Stack<Integer> s = new Stack<Integer>();
+		Stack<Integer> s = new Stack<Integer>();
 		for (int i=0; i<4; ++i){
 			s.push(i);
 		}
-		System.out.println(s);
-		*/
-		LinkedList<Integer> l = new LinkedList<Integer>();
-		l.add(4);
-		System.out.println(l);
+		test("TEST 1: Pushing onto stack", s.toString(), "{ 0, 1, 2, [ 3 ]}");
+		/****************************************************************
+		 * TEST 2
+		 ****************************************************************/	
+		while (!s.empty()){
+			s.pop();
+		}
+		test("Test 2: Popped all elements", s.toString(), "{ }");
+		/****************************************************************
+		 * TEST 3
+		 ****************************************************************/	 
+		Stack<String> reverse = new Stack<String>();
+		String str = "Hello world!";
+		for (int i=0; i<str.length(); i++){
+			reverse.push("" + str.charAt(i));
+		}
+		str = "";
+		while (!reverse.empty()){
+			str += reverse.pop();
+		}
+		test("Test 3: Reverse string", str, "!dlrow olleH");
+		/****************************************************************
+		 * TEST 4
+		 ****************************************************************/	
+		for (int i=0; i<10; i++){
+			reverse.push("Hello");
+		}
+		test("Test 5: Size", reverse.size(), 10);
 	}
 /**
  * END TEST DRIVER

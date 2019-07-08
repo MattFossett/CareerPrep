@@ -2,7 +2,6 @@ package collections;
 
 import java.util.EmptyStackException;
 import java.util.Iterator;
-//import LinkedList;
 
 public class Stack<E>{
     private LinkedList<E> s;
@@ -74,7 +73,7 @@ public class Stack<E>{
         it.next();
         for (int i=0; i<s.size(); ++i){
             if (i == s.size()-1){
-                str.append(" [ " + it + " ]}");
+                str.append("[ " + it + " ]}");
                 break;
             }
             str.append(it + ", ");

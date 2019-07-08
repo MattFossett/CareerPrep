@@ -8,7 +8,7 @@ This repository is a central view into how I am preparing for interviews and fur
 - [ ] Tries
 - [ ] Trees
 - [ ] Graphs
-- [ ] Stacks 
+- [X] Stacks 
 - [ ] Queues
 - [ ] Heaps
 - [ ] Dynamic Arrays 
