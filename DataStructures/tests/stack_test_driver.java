@@ -1,3 +1,6 @@
+package tests;
+
+import collections.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 //import <LinkedList>; //TODO HOW TO LINK JAVA FILE IN OTHER DIRECTORY
@@ -5,7 +8,7 @@ import java.util.Iterator;
  * This is a simple file that creates test simply based on string comparison. 
  *  @MattFossett
  */
-public class test_driver {
+public class stack_test_driver {
 	/**
 	 * TEST DRIVER
 	 */

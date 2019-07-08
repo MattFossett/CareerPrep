@@ -1,3 +1,5 @@
+package collections;
+
 import java.util.EmptyStackException;
 import java.util.Iterator;
 //import LinkedList;

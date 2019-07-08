@@ -1,3 +1,6 @@
+package tests;
+
+import collections.LinkedList;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -5,7 +8,7 @@ import java.util.Iterator;
  * This is a simple file that creates test simply based on string comparison. 
  *  @MattFossett
  */
-public class test_driver {
+public class list_test_driver {
 	/**
 	 * TEST DRIVER
 	 */
