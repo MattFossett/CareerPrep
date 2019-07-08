@@ -12,7 +12,13 @@ Contains the test driver files to ensure that data structures are working to spe
 Test output is stored in text files in [/tests/output](/tests/output). 
 
 Compiling tests:
-From [/DataStructures](/) compile with the following example: <br>
-> javac tests/list_test_driver.java <br>
+From [/DataStructures]() compile with the following example: <br>
+```
+javac tests/list_test_driver.java <br>
+```
+
 Run this file with the following example: <br>
-> java tests/list_test_driver
+
+```
+java tests/list_test_driver
+```
