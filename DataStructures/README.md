@@ -7,6 +7,12 @@ Both are Java packages.
 This package contains my implementation for common Data Structures. Many of these classes use other custom classes to fully implement, 
 such as Stack implemented with List. 
 
-### [tests directory](tests)
+### [/tests](tests)
 Contains the test driver files to ensure that data structures are working to specification. 
-Test output is stored in text files in a separate directory. 
+Test output is stored in text files in [/tests/output](/tests/output). 
+
+Compiling tests:
+From [/DataStructures](/) compile with the following example: <br>
+> javac tests/list_test_driver.java <br>
+Run this file with the following example: <br>
+> java tests/list_test_driver
