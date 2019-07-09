@@ -4,7 +4,7 @@
 
 Memory can be allocated on a Stack or on a Heap. They are used for different cases. 
 
-**Stack Allocation:** Contiguous blocks of memory are allocated on the stack. 
+**Stack Allocation:** Static memory allocation. Contiguous blocks of memory are allocated on the stack. 
 The size of memory is known at compile time and when a funciton is called its variables are placed on the stack. 
 Once the function call is over the stack essentially pops these variables, deallocating them. 
 As far as C or C++ is concerned, the programmer does **not** need to worry about deallocation. 
@@ -17,7 +17,7 @@ Here are some variables that would be found allocated on the stack:
     int c[n];
 ```
 
-**Heap Allocation:** Memory allocated during the runtime of the program. 
+**Heap Allocation:** Dynamic Memory allocation. Memory allocated during the runtime of the program. 
 Unfortunately the heap is **not** called this based on the Data Structure, but because it is a heap of available memory.
 The heap is where memory leaks are found since the programmer is in charge of allocating and deallocating memory. 
 
@@ -34,6 +34,9 @@ int *prt = new int[10];
 | Access Time | Faster | Slower |
 | Issues | Shortage of memory | Fragmentation and potential memory leaks by programmer |
 | Flexibility | Fixed size | Able to resize |
+| Threads | Thread specific, no sharing | Heap is application specific so threads can share | 
+
+
 
 **Key Differences:**
 * Stack automatically alloc/dealloc's and the heap is done by the programmer.
