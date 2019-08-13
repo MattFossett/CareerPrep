@@ -13,7 +13,7 @@ import java.util.NoSuchElementException;
  *   removing:  O(1)
  */
 public class Array<E> implements Iterable<E>, Cloneable {
-	private E[] m_array;
+	private Object[] m_array;
     private int size;
     private int capacity;
 	
@@ -21,16 +21,16 @@ public class Array<E> implements Iterable<E>, Cloneable {
 	 * 
 	 */
 	public Array(){
-        m_array = new E[10];
+        m_array = new Object[10];
         size = 0;
         capacity = 10;
     }
     
     public Array(Array<E> arr){
-        m_array = new E[arr.size()*2];
+        m_array = new Object[arr.size()*2];
         size = 0;
         capacity = m_array.length;
-        for (E i : arr){
+        for (Object i : arr){
             add(i);
         }
     }
@@ -39,7 +39,7 @@ public class Array<E> implements Iterable<E>, Cloneable {
 	 * Adds element data to the end of the list
 	 * @param data
 	 */
-	public void add( E data ){
+	public void add( Object data ){
         ensureCapacity(size+1);
         m_array[size] = data;
         size++;
@@ -51,13 +51,16 @@ public class Array<E> implements Iterable<E>, Cloneable {
 	 * @param index
 	 * @param data
 	 */
-	public void add( int index, E data ){
-        ensureCapacity()
+	public void add( int index, Object data ){
+        ensureCapacity(size+1);
+        System.arraycopy(m_array, index, m_array, index+1, size-index);
+        m_array[index] = data;
+        size++;
 	}
     
     public void ensureCapacity(int minCapacity){
         if (capacity < minCapacity){
-            E[] big = new E[capacity * 2];
+            Object[] big = new Object[capacity * 2];
             System.arraycopy(m_array, 0, big, 0, size);
             m_array = big;
             capacity *= 2;
@@ -72,7 +75,7 @@ public class Array<E> implements Iterable<E>, Cloneable {
 	 * @return
 	 */
 	public boolean addAll(Collection<? extends E> c){
-		for(E i : c)
+		for(Object i : c)
 			add(i);
 		return true;
 	}
@@ -88,11 +91,11 @@ public class Array<E> implements Iterable<E>, Cloneable {
         // Optimization to make sure capacity change is not called many times
         ensureCapacity(c.size()+size);
         // Storing values will be faster than individual insertions into middle off m_array
-        E[] temp = new E[size-index];
+        Object[] temp = new Object[size-index];
         System.arraycopy(m_array, index, temp, 0, size-index);
         
         int tempSize = size;
-        for(E i : c){
+        for(Object i : c){
 			if (index < tempSize){
                 set(index, i);
             } else {
@@ -100,7 +103,7 @@ public class Array<E> implements Iterable<E>, Cloneable {
             }
 			index++;
         }
-        System.arraycopy(temp, 0, m_array, size, temp.length());
+        System.arraycopy(temp, 0, m_array, size, temp.length);
 		return true;
 	}
 	
@@ -108,7 +111,7 @@ public class Array<E> implements Iterable<E>, Cloneable {
 	 * 
 	 */
 	public void clear(){
-        E[] blank = new E[10];
+        Object[] blank = new Object[10];
         capacity = 10;
         size = 0;
         m_array = blank;
@@ -130,7 +133,7 @@ public class Array<E> implements Iterable<E>, Cloneable {
 
     public int indexOf(Object o){
         int ret = 0;
-        for (E i : m_array){
+        for (Object i : m_array){
             if (i==o){
                 return ret; 
             }
@@ -152,7 +155,7 @@ public class Array<E> implements Iterable<E>, Cloneable {
 	 * @param index
 	 * @return data
 	 */
-	public E get(int index){
+	public Object get(int index){
         ensureRange(index);
         return m_array[index];
 	}
@@ -163,7 +166,7 @@ public class Array<E> implements Iterable<E>, Cloneable {
 	 * @param element
 	 * @return element
 	 */
-	public E set(int index, E element){
+	public Object set(int index, Object element){
         ensureRange(index);
         m_array[index] = element;
         return element;
@@ -179,9 +182,9 @@ public class Array<E> implements Iterable<E>, Cloneable {
 	 * @param index
 	 * @return data from that node
 	 */
-	public E remove(int index){
-        ensureRange();
-        E temp = m_array[index];
+	public Object remove(int index){
+        ensureRange(index);
+        Object temp = m_array[index];
         System.arraycopy(m_array, index+1, m_array, index, size-1 );
         size--;
         return temp;
@@ -196,7 +199,7 @@ public class Array<E> implements Iterable<E>, Cloneable {
     /**
      * Removes from this list all of the elements whose index is between fromIndex, inclusive, and toIndex, exclusive.
      */
-    public protected void removeRange (int fromIndex, int toIndex){
+    public void removeRange (int fromIndex, int toIndex){
         ensureRange(fromIndex);
         ensureRange(toIndex);
         System.arraycopy(m_array, toIndex, m_array, fromIndex, size-(toIndex-fromIndex));
@@ -230,18 +233,18 @@ public class Array<E> implements Iterable<E>, Cloneable {
 		values.append(" }");
 		return values.toString();
 	}
-	
+	/*
 	@Override
 	public Iterator<E> iterator() {
-		ArrayIterator<E> it = new ArrayIterator<E>(this);
+		CustomArrayIterator<E> it = new CustomArrayIterator<E>(this);
 		return it;
-	}
+	}*/
 }
 
 /**
  * This is the implementation for the custom Array iterator.
  */
-class ArrayIterator<E> implements Iterator<E> {
+class CustomArrayIterator<E> implements Iterator<E> {
     private Array<E> elements;
     private int index;
 
@@ -249,7 +252,7 @@ class ArrayIterator<E> implements Iterator<E> {
 	 * Start iterator at index 0
 	 *   
 	 */
-	public ArrayIterator(Array<E> arr){
+	public CustomArrayIterator(Array<E> arr){
         elements = arr;
         index = 0;
 	}
@@ -269,7 +272,7 @@ class ArrayIterator<E> implements Iterator<E> {
 			throw new NoSuchElementException();
 		}
 		index++;
-		return elements[index];
+		return (E)elements.get(index);
 	}
 
 	public E previous(){
@@ -277,7 +280,7 @@ class ArrayIterator<E> implements Iterator<E> {
 			throw new NoSuchElementException();
 		}
 		index--;
-		return elements[index];
+		return (E)elements.get(index);
 	}
 
 	@Override
@@ -287,6 +290,6 @@ class ArrayIterator<E> implements Iterator<E> {
 
 	@Override
 	public String toString(){
-		return elements[index] + "";
+		return elements.get(index) + "";
 	}
-}
+} 
