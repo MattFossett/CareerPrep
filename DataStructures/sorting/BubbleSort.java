@@ -17,8 +17,6 @@ public class BubbleSort {
 					arr.set(i+1, temp);
 					isSorted = false;
 				}
-				
-				System.out.println(count);
 			}
 		}
 		
