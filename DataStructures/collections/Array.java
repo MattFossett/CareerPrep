@@ -30,7 +30,7 @@ public class Array<E> implements Iterable<E>, Cloneable {
         m_array = new Object[arr.size()*2];
         size = 0;
         capacity = m_array.length;
-        for (Object i : arr){
+        for (E i : arr){
             add(i);
         }
     }
@@ -39,7 +39,7 @@ public class Array<E> implements Iterable<E>, Cloneable {
 	 * Adds element data to the end of the list
 	 * @param data
 	 */
-	public void add( Object data ){
+	public void add( E data ){
         ensureCapacity(size+1);
         m_array[size] = data;
         size++;
@@ -51,7 +51,7 @@ public class Array<E> implements Iterable<E>, Cloneable {
 	 * @param index
 	 * @param data
 	 */
-	public void add( int index, Object data ){
+	public void add( int index, E data ){
         ensureCapacity(size+1);
         System.arraycopy(m_array, index, m_array, index+1, size-index);
         m_array[index] = data;
@@ -75,7 +75,7 @@ public class Array<E> implements Iterable<E>, Cloneable {
 	 * @return
 	 */
 	public boolean addAll(Collection<? extends E> c){
-		for(Object i : c)
+		for(E i : c)
 			add(i);
 		return true;
 	}
@@ -95,7 +95,7 @@ public class Array<E> implements Iterable<E>, Cloneable {
         System.arraycopy(m_array, index, temp, 0, size-index);
         
         int tempSize = size;
-        for(Object i : c){
+        for(E i : c){
 			if (index < tempSize){
                 set(index, i);
             } else {
@@ -120,7 +120,7 @@ public class Array<E> implements Iterable<E>, Cloneable {
 	/**
 	 * Returns shallow copy of Array object
 	 */
-	public Object clone(){
+	public Array<E> clone(){
         Array<E> clone = new Array<E>();
         System.arraycopy(m_array, 0, clone, 0, size);
 		return clone;
@@ -155,9 +155,10 @@ public class Array<E> implements Iterable<E>, Cloneable {
 	 * @param index
 	 * @return data
 	 */
-	public Object get(int index){
+	@SuppressWarnings("unchecked")
+	public E get(int index){
         ensureRange(index);
-        return m_array[index];
+        return (E)m_array[index];
 	}
     
     /**
@@ -166,7 +167,7 @@ public class Array<E> implements Iterable<E>, Cloneable {
 	 * @param element
 	 * @return element
 	 */
-	public Object set(int index, Object element){
+	public E set(int index, E element){
         ensureRange(index);
         m_array[index] = element;
         return element;
@@ -182,9 +183,10 @@ public class Array<E> implements Iterable<E>, Cloneable {
 	 * @param index
 	 * @return data from that node
 	 */
-	public Object remove(int index){
+	@SuppressWarnings("unchecked")
+	public E remove(int index){
         ensureRange(index);
-        Object temp = m_array[index];
+        E temp = (E)m_array[index];
         System.arraycopy(m_array, index+1, m_array, index, size-1 );
         size--;
         return temp;
@@ -233,12 +235,12 @@ public class Array<E> implements Iterable<E>, Cloneable {
 		values.append(" }");
 		return values.toString();
 	}
-	/*
+	
 	@Override
 	public Iterator<E> iterator() {
 		CustomArrayIterator<E> it = new CustomArrayIterator<E>(this);
 		return it;
-	}*/
+	}
 }
 
 /**
@@ -250,11 +252,10 @@ class CustomArrayIterator<E> implements Iterator<E> {
 
 	/**
 	 * Start iterator at index 0
-	 *   
 	 */
 	public CustomArrayIterator(Array<E> arr){
         elements = arr;
-        index = 0;
+        index = -1;
 	}
 
 	@Override
@@ -265,13 +266,14 @@ class CustomArrayIterator<E> implements Iterator<E> {
 	public boolean hasPrevious(){
 		return index-1 > -1;
 	}
-
+	
 	@Override
 	public E next() {
 		if (!hasNext()){
 			throw new NoSuchElementException();
 		}
 		index++;
+		
 		return (E)elements.get(index);
 	}
 
@@ -280,7 +282,8 @@ class CustomArrayIterator<E> implements Iterator<E> {
 			throw new NoSuchElementException();
 		}
 		index--;
-		return (E)elements.get(index);
+		E element = (E)elements.get(index);
+		return element;
 	}
 
 	@Override

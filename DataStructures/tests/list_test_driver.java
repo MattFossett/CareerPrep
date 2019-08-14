@@ -12,7 +12,6 @@ public class list_test_driver {
 	/**
 	 * TEST DRIVER
 	 */
-	
 	public static boolean test(String testName, String actualValue, String expectedValue){
 		if (actualValue.equals(expectedValue)){
 			System.out.println("=====================================================");
