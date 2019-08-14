@@ -52,7 +52,8 @@ public class Array<E> implements Iterable<E>, Cloneable {
 	 * @param data
 	 */
 	public void add( int index, E data ){
-        ensureCapacity(size+1);
+		ensureCapacity(size+10);
+		ensureRange(index);
         System.arraycopy(m_array, index, m_array, index+1, size-index);
         m_array[index] = data;
         size++;
@@ -67,6 +68,11 @@ public class Array<E> implements Iterable<E>, Cloneable {
         }
     }
 
+	private void ensureRange(int i){
+        if (i > size || i<0){
+			throw new IndexOutOfBoundsException("Index is: " + i + " and size is: " + size);
+        }
+    }
 
 
 	/**
@@ -93,7 +99,6 @@ public class Array<E> implements Iterable<E>, Cloneable {
         // Storing values will be faster than individual insertions into middle off m_array
         Object[] temp = new Object[size-index];
         System.arraycopy(m_array, index, temp, 0, size-index);
-        
         int tempSize = size;
         for(E i : c){
 			if (index < tempSize){
@@ -102,8 +107,9 @@ public class Array<E> implements Iterable<E>, Cloneable {
                 add(index, i);
             }
 			index++;
-        }
-        System.arraycopy(temp, 0, m_array, size, temp.length);
+		}
+		System.arraycopy(temp, 0, m_array, index, temp.length);
+		size+=temp.length;
 		return true;
 	}
 	
@@ -173,11 +179,7 @@ public class Array<E> implements Iterable<E>, Cloneable {
         return element;
 	}
 
-    private void ensureRange(int i){
-        if (i > size || i<0){
-            throw new IndexOutOfBoundsException();
-        }
-    }
+    
 
 	/**
 	 * @param index
@@ -207,7 +209,14 @@ public class Array<E> implements Iterable<E>, Cloneable {
         System.arraycopy(m_array, toIndex, m_array, fromIndex, size-(toIndex-fromIndex));
         size-= (toIndex-fromIndex);
 
-    }    
+	}    
+	
+	public void trimToSize(){
+		Object[] temp = new Object[size];
+		System.arraycopy(m_array, 0, temp, 0, size);
+		m_array = temp;
+		capacity = size;
+	}
     
 	/**
 	 * Current number of elements in list
