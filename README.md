@@ -9,17 +9,17 @@ This repository is a central view into how I am preparing for interviews and fur
 - [ ] Trees
 - [ ] Graphs
 - [X] Stacks 
-- [ ] Queues
+- [X] Queues
 - [ ] Heaps
-- [ ] Dynamic Arrays 
+- [X] Dynamic Arrays 
 - [ ] Hash Tables
 - [ ] Breadth-first Search
 - [ ] Depth-first Search
-- [ ] Binary Search
+- [X] Binary Search
 - [ ] MergeSort
 - [ ] QuickSort
 - [ ] Bit Manipulation
 - [ ] Stack Versus Heap Memory
 - [ ] Recursion
 - [ ] Dynamic Programming
-- [ ] Big O Time/Space Complexity
+- [X] Big O Time/Space Complexity
