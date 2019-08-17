@@ -2,6 +2,9 @@ package sorting;
 
 import java.util.ArrayList;
 
+/**
+ * Bubble sort is a primitive sorting algorithm
+ */
 public class BubbleSort {
 	
 	public static void bubbleSort(ArrayList<Integer> arr){
@@ -17,8 +20,6 @@ public class BubbleSort {
 					arr.set(i+1, temp);
 					isSorted = false;
 				}
-				
-				System.out.println(count);
 			}
 		}
 		
